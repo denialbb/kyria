@@ -22,7 +22,7 @@ enum layers {
     _SYM,
     _FUNCTION,
     _ADJUST,
-    _ACCENTS,
+    _HOMEROW,
 };
 
 enum accents {
@@ -51,7 +51,7 @@ enum accents {
 #define NAV      MO(_NAV)
 #define FKEYS    MO(_FUNCTION)
 #define ADJUST   MO(_ADJUST)
-#define ACCENTS  MO(_ACCENTS)
+#define HOMEROW  MO(_HOMEROW)
 
 #define CTL_ESC  MT(MOD_LCTL, KC_ESC)
 #define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |  ←   |   ↓  |   ↑  |   →  | PgUp |                              | PgDn |  ←   |   ↓  |   ↑  |   →  | Insert |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      |      | PgDn | Home | //// |  |      | End  | Pause|M Prev|M Play|M Next| Mute | PrtSc  |
+ * |        |      |      |      |      | PgDn | //// |      |  |      | HOME | Pause|M Prev|M Play|M Next| Mute | PrtSc  |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
@@ -102,8 +102,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV] = LAYOUT(
      GRV_SPC ,   KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 ,                                            KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 , KC_EQL ,
       _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_PGUP,                                          KC_PGDN, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, KC_INS,
-      _______, _______, _______, _______, _______, KC_PGDN, KC_HOME, _______,      _______, KC_END, KC_PAUSE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_PSCR,
-                                 _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______
+      _______, _______, _______, _______, _______, KC_PGDN, _______, _______,      _______, HOMEROW, KC_PAUSE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_PSCR,
+                                 _______, _______, _______,        , _______,      _______,       , _______, _______, _______
     ),
 
 /*
@@ -114,17 +114,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |    ~   |  !   |  @   |  #   |  $   |  %   |                              |   ^  |  &   |  *   |  (   |  )   |   +    |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |    |   |   \  |  :   |  ;   |  -   |  [   |  {   |      |  | //// |   }  |   ]  |  _   |  ,   |  .   |  /   |   ?    |
+ * |    |   |   \  |  :   |  [   |  {   |  [   | HOME |      |  |      | //// |   ]  |  )   |  ,   |  .   |  /   |   ?    |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      | ACC  |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_SYM] = LAYOUT(
      GRV_SPC ,   KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 ,                                            KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 , KC_EQL ,
-     TIL_SPC , KC_EXLM,  KC_AT , KC_HASH,  KC_DLR, KC_PERC,                                          CIR_SPC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS,
-     KC_PIPE , KC_BSLS, KC_COLN, KC_SCLN, KC_MINS, KC_LPRN, KC_LCBR, _______,      _______, KC_RCBR, KC_RPRN, KC_UNDS, KC_COMM,  KC_DOT, KC_SLSH, KC_QUES,
-                                 _______, _______, _______, _______, ACCENTS,      _______, _______, _______, _______, _______
+     TIL_SPC , KC_EXLM,  KC_AT , KC_HASH,  KC_DLR, KC_PERC,                                          S(KR_6), KC_AMPR, KC_ASTR, KC_SLSH KC_BSLS, KC_PLUS,
+     KC_PIPE , KC_BSLS, KC_COLN, KC_LBRC, KC_LCBR, KC_LBRC, HOMEROW, _______,      _______, _______, KC_RBRC, KC_RCBR, KC_COMM,  KC_DOT, KC_SLSH, KC_QUES,
+                                 _______, _______, _______,        , _______,      _______,       , _______, _______, _______
     ),
 
 /*
@@ -170,23 +170,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 /*
- * Accents Layer
+ * Homerow Layer
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |  À   |  Ò   |  È   |  Ù   |  Ì   |                              |   Í  |   Ú  |  É   |  Ó   |  Á   |        |
+ * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  à   |  ò   |  è   |  ù   |  ì   |                              |   í  |   ú  |  é   |  ó   |  á   |        |
+ * |        |  !   |  #   |  ?   |  ~   |  %   |                              |   \  |   /  |  *   |  +   |  =   |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+ * |        |  1   |  2   |  3   |  4   |  5   |                              |   6  |  7   |  8   |  9   |  0   |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-    [_ACCENTS] = LAYOUT(
-      _______, GR_SA  , _______, _______, _______, _______,                                     _______, _______, _______, _______, AC_SA  , _______,
-      _______, GR_A   , GR_O   , GR_E   , GR_U   , GR_I   ,                                     AC_I   , AC_U   , AC_E   , AC_O   , AC_A   , _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    [_HOMEROW] = LAYOUT(
+      _______, _______  , _______, _______, _______, _______,                                     _______, _______, _______, _______, _______  , _______,
+      _______, KC_EXLM , KC_HASH, KC_QUES, KC_GRV, KC_PERC  ,                                    KC_BSLS, KC_PSLS , KC_PAST , KC_PPLS, KC_PPEQ  ,  _______,
+      _______,   KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 , _______, _______, _______, _______, KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 , _______ ,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 // /*
@@ -251,8 +251,8 @@ bool oled_task_user(void) {
             case _ADJUST:
                 oled_write_P(PSTR("Adjust\n"), false);
                 break;
-            case _ACCENTS:
-                oled_write_P(PSTR("Accents\n"), false);
+            case _HOMEROW:
+                oled_write_P(PSTR("Homerow\n"), false);
                 break;
             default:
                 oled_write_P(PSTR("Undefined\n"), false);
