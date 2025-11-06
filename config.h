@@ -18,11 +18,12 @@
 
 #undef WS2812_DI_PIN
 #define WS2812_DI_PIN 25
-// #undef RGBLED_NUM
-// #define RGBLED_NUM 2
 #undef RGBLED_SPLIT
 #define RGBLED_SPLIT {1, 1}
+#define RGBLIGHT_LIMIT_VAL 30
 
 // for pretty colors
 #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_LAYER_STATE_ENABLE
+
+

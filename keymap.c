@@ -121,8 +121,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_SYM] = LAYOUT(
-     GRV_SPC ,   KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 ,                                     KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 , KC_EQL ,
-     TIL_SPC , KC_EXLM,  KC_AT , KC_HASH,  KC_DLR, KC_PERC,                                     S(KC_6), KC_AMPR, KC_ASTR, KC_SLSH, KC_BSLS, KC_PLUS,
+     KC_GRV ,   KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 ,                                     KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 , KC_EQL ,
+     KC_TILD , KC_EXLM,  KC_AT , KC_HASH,  KC_DLR, KC_PERC,                                     S(KC_6), KC_AMPR, KC_ASTR, KC_SLSH, KC_BSLS, KC_PLUS,
      KC_PIPE , KC_BSLS, KC_COLN, KC_LBRC, KC_LCBR, KC_LBRC, HOMEROW, _______, _______, _______, KC_RBRC, KC_RCBR, KC_COMM,  KC_DOT, KC_SLSH, KC_QUES,
                                  _______, _______, _______, XXXXXXX, _______, _______, XXXXXXX, _______, _______, _______
     ),
@@ -154,19 +154,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |   ^    |  =   |  7   |  8   | Print| Home |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  .   |  4   |  5   | PGUp | PGDn |                              | TOG  | SAI  | HUI  | VAI  | MOD  |        |
+ * |        |  .   |  4   |  5   | PGUp | PGDn |                              |      | LEFT | DOWN | UP   | RIGHT|        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |  0   |  1   |  CUT | PASTE| COPY |  *   |      |  |      |      |      | SAD  | HUD  | VAD  | RMOD |        |
+ * |        |  0   |  1   |  CUT | COPY | PASTE|  *   |      |  |      |      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | //// |      |      |      |      |  |      |      |      |      |      |
+ *                        | //// |      |      | BKSP |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_ADJUST] = LAYOUT(
-      CIR_SPC, KC_EQL , KC_7   , KC_8   , KC_PSCR   , KC_HOME,                                    _______, _______, _______, _______,  _______, _______,
-      _______, KC_DOT , KC_4   , KC_5   , KC_PGUP   , KC_PGDN,                                    _______, _______, _______, _______,  _______, _______,
-      _______, KC_0   , KC_1   , C(KC_X)   , S(KC_INS) , C(KC_INS),KC_ASTR, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
+      CIR_SPC, KC_EQL , KC_7   , KC_8   , KC_PSCR   , KC_HOME,                                   _______, _______, _______, _______,  _______, _______,
+      _______, KC_DOT , KC_4   , KC_5   , KC_PGUP   , KC_PGDN,                                   _______,C(KC_LEFT),C(KC_DOWN),C(KC_UP),C(KC_RGHT),_______,
+      _______, KC_0   , KC_1   , C(KC_X),C(KC_INS), S(KC_INS),  KC_ASTR,_______,_______,_______, _______, _______, _______, _______, _______, _______,
+                                 _______, _______, _______,  C(KC_BSPC),_______,_______,_______, _______, _______, _______
     ),
 
 /*
@@ -379,14 +379,29 @@ void housekeeping_task_user(void) {
             rgblight_setrgb_at(RGB_BLACK, 1);
             break;
         case 1:
+            // NAV
             rgblight_setrgb_at(RGB_PURPLE, 0);
+            rgblight_setrgb_at(RGB_BLACK, 1);
             break;
         case 2:
+            // SYM
             rgblight_setrgb_at(RGB_PURPLE, 1);
+            rgblight_setrgb_at(RGB_BLACK, 0);
             break;
         case 3:
-            rgblight_setrgb_at(RGB_CYAN, 0);
+            // ADJUST
+            rgblight_setrgb_at(RGB_BLACK, 0);
             rgblight_setrgb_at(RGB_CYAN, 1);
+            break;
+        case 4:
+            // FKEYS
+            rgblight_setrgb_at(RGB_CYAN, 0);
+            rgblight_setrgb_at(RGB_BLACK, 1);
+            break;
+        case 5:
+            // HOMEROW
+            rgblight_setrgb_at(RGB_RED, 1);
+            rgblight_setrgb_at(RGB_RED, 1);
             break;
     }
 }
